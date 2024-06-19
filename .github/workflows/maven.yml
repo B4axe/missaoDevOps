@@ -21,7 +21,9 @@ jobs:
         distribution: 'temurin'
 
     - name: Compile Java Code
-      run: javac -d out FilaSequencial/src/main.java
+      run: |
+          cd FilaSequencial/src
+          javac -cp Main.java
 
     - name: Create JAR File
       run: |
