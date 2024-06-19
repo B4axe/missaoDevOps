@@ -25,7 +25,7 @@ jobs:
     - name: Compile Java Code
       run: |
           cd FilaSequencial/src
-          javac -cp Main.java
+          javac -cp . Main.java
 
     - name: Create JAR File
       run: |
