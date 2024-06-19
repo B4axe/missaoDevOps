@@ -1,0 +1,41 @@
+# This workflow will build a Java project, compile it using javac, and create a JAR file.
+# Additionally, it will build and push a Docker image with a production tag.
+
+name: Java CI
+
+on:
+  pull_request:
+    branches: [ "prod" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 19
+      uses: actions/setup-java@v3
+      with:
+        java-version: '19'
+        distribution: 'temurin'
+
+    - name: Compile Java Code
+      run: javac -d out src/**/*.java
+
+    - name: Create JAR File
+      run: |
+        jar cvf app.jar -C out .
+
+    - name: Usando o git Run Number
+      run: echo "Numero no Git:${{ github.run_number }}"
+
+    - name: Docker Build & Push Action
+      uses: mr-smithers-excellent/docker-build-push@v6.4
+      with:
+        image: evellyn/actionjava
+        tags: ${{ github.run_number }}-prod
+        registry: docker.io
+        dockerfile: dockerfile
+        username: ${{ secrets.user }}
+        password: ${{ secrets.senha }}
