@@ -27,10 +27,6 @@ jobs:
           cd FilaSequencial/src
           javac -cp . Main.java
 
-    - name: Create JAR File
-      run: |
-        jar cvf app.jar -C out .
-
     - name: Usando o git Run Number
       run: echo "Numero no Git:${{ github.run_number }}"
 
