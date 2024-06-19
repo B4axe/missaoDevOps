@@ -39,3 +39,7 @@ jobs:
         dockerfile: dockerfile
         username: ${{ secrets.user }}
         password: ${{ secrets.senha }}
+    - name: Build and Push Docker Image
+      run: |
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/actionjava:${{ github.run_number }}-prod .
+        docker push ${{ secrets.DOCKER_USERNAME }}/actionjava:${{ github.run_number }}-prod
